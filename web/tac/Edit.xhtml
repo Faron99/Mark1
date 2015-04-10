@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TacEditDlg" widgetVar="TacEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTacTitle}">
+            <h:form id="TacEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tacController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTacLabel_tacPK_TACName}" for="tacPK_TACName" />
+                        <p:inputText id="tacPK_TACName" value="#{tacController.selected.tacPK.TACName}" title="#{bundle.EditTacTitle_tacPK_TACName}" required="true" requiredMessage="#{bundle.EditTacRequiredMessage_tacPK_TACName}"/>
+                        <p:outputLabel value="#{bundle.EditTacLabel_tacPK_idPM}" for="tacPK_idPM" />
+                        <p:inputText id="tacPK_idPM" value="#{tacController.selected.tacPK.idPM}" title="#{bundle.EditTacTitle_tacPK_idPM}" required="true" requiredMessage="#{bundle.EditTacRequiredMessage_tacPK_idPM}"/>
+                        <p:outputLabel value="#{bundle.EditTacLabel_tacPK_idTAC}" for="tacPK_idTAC" />
+                        <p:inputText id="tacPK_idTAC" value="#{tacController.selected.tacPK.idTAC}" title="#{bundle.EditTacTitle_tacPK_idTAC}" required="true" requiredMessage="#{bundle.EditTacRequiredMessage_tacPK_idTAC}"/>
+                        <p:outputLabel value="#{bundle.EditTacLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{tacController.selected.description}" title="#{bundle.EditTacTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditTacLabel_coreTeam}" for="coreTeam" />
+                        <p:selectOneMenu id="coreTeam" value="#{tacController.selected.coreTeam}" required="true" requiredMessage="#{bundle.EditTacRequiredMessage_coreTeam}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{coreTeamController.itemsAvailableSelectOne}"
+                                           var="coreTeamItem"
+                                           itemValue="#{coreTeamItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTacLabel_issue}" for="issue" />
+                        <p:selectOneMenu id="issue" value="#{tacController.selected.issue}" required="true" requiredMessage="#{bundle.EditTacRequiredMessage_issue}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{issueController.itemsAvailableSelectOne}"
+                                           var="issueItem"
+                                           itemValue="#{issueItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tacController.update}" value="#{bundle.Save}" update="display,:TacListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TacEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TacEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

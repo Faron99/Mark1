@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PwikiEditDlg" widgetVar="PwikiEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPwikiTitle}">
+            <h:form id="PwikiEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pwikiController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_pwikiPK_idPWiki}" for="pwikiPK_idPWiki" />
+                        <p:inputText id="pwikiPK_idPWiki" value="#{pwikiController.selected.pwikiPK.idPWiki}" title="#{bundle.EditPwikiTitle_pwikiPK_idPWiki}" required="true" requiredMessage="#{bundle.EditPwikiRequiredMessage_pwikiPK_idPWiki}"/>
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_pwikiPK_idTAC}" for="pwikiPK_idTAC" />
+                        <p:inputText id="pwikiPK_idTAC" value="#{pwikiController.selected.pwikiPK.idTAC}" title="#{bundle.EditPwikiTitle_pwikiPK_idTAC}" required="true" requiredMessage="#{bundle.EditPwikiRequiredMessage_pwikiPK_idTAC}"/>
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{pwikiController.selected.name}" title="#{bundle.EditPwikiTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_model}" for="model" />
+                        <p:inputText id="model" value="#{pwikiController.selected.model}" title="#{bundle.EditPwikiTitle_model}" />
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{pwikiController.selected.description}" title="#{bundle.EditPwikiTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_image}" for="image" />
+                        <p:inputText id="image" value="#{pwikiController.selected.image}" title="#{bundle.EditPwikiTitle_image}" />
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_dips}" for="dips" />
+                        <p:inputText id="dips" value="#{pwikiController.selected.dips}" title="#{bundle.EditPwikiTitle_dips}" />
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_tec}" for="tec" />
+                        <p:inputText id="tec" value="#{pwikiController.selected.tec}" title="#{bundle.EditPwikiTitle_tec}" />
+                        <p:outputLabel value="#{bundle.EditPwikiLabel_entorno}" for="entorno" />
+                        <p:inputText id="entorno" value="#{pwikiController.selected.entorno}" title="#{bundle.EditPwikiTitle_entorno}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pwikiController.update}" value="#{bundle.Save}" update="display,:PwikiListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PwikiEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PwikiEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
